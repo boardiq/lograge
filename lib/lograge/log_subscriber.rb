@@ -9,6 +9,7 @@ module Lograge
       return if Lograge.ignore?(event)
 
       payload = event.payload
+      ActionController::Base.log_process_action(payload)
       data = extract_request(event, payload)
       data = before_format(data, payload)
       formatted_message = Lograge.formatter.call(data)
